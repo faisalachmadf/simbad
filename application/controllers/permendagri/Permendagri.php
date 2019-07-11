@@ -12,4 +12,3 @@ class Permendagri extends CI_Controller {
 		$this->load->view('frontend/template/v_footer');
 	}
 }
-	

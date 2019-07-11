@@ -95,8 +95,10 @@ class Permendagri extends CI_Controller
 
 	public function detail($id)
 	{
-		$data['judul'] = 'Detail';
-		$data['title'] = 'Detail Permendagri';
+		$data = [
+			'judul' => 'Detail',
+			'title' => 'Detail Permendagri',
+		];
 
 		$data['permendagri'] = $this->M_permendagri->get_by_id($id);
 
