@@ -26,7 +26,7 @@
                        <label for="id_katprov" class="col-sm-2 col-form-label">Segmen Perbatasan</label>
                         <div class="col-sm-10">
                           <select class="custom-select mr-sm-2" id="id_katprov" name="id_katprov">
-                            <option selected></option>
+                            <option selected><?= set_value('id_katprov'); ?></option>
                             <option value="Prov. Jawa Barat dengan Prov. DKI Jakarta">Prov. Jawa Barat dengan Prov. DKI Jakarta</option>
                             <option value="Prov. Jawa Barat dengan Prov. Banten">Prov. Jawa Barat dengan Prov. Banten</option>
                             <option value="Prov. Jawa Barat dengan Prov. Jawa Tengah">Prov. Jawa Barat dengan Prov. Jawa Tengah</option>

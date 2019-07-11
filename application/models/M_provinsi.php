@@ -9,8 +9,6 @@ class M_provinsi extends CI_Model {
         $this->load->database('');
 	}
 
-   
-
     public function get_by_id($id)
     {   
         

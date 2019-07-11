@@ -44,7 +44,6 @@ class Permendagri extends CI_Controller
 				   $num,
 					'<a href="' . base_url('admin/permendagri/Permendagri/detail')."/".$permen->id .'">' .$permen->nomor. '</a>',
                     $permen->tentang,
-                
 					/*'<a href="' . base_url('admin/permendagri/Permendagri/detail')."/".$permen->id . '" class="btn btn-circle btn-warning" title="Detil"><i class="fas fa-bars"></i></a>'.' 
 					'.*/
 					'<a href="' . base_url('admin/permendagri/Permendagri/edit')."/".$permen->id . '" title="Ubah"><i class="fas fa-edit"></i></a>'.'  
@@ -145,6 +144,9 @@ class Permendagri extends CI_Controller
 		redirect('admin/permendagri/Permendagri');
 	}
 
-	
+	public function upload()
+	{
+		
+	}
 	
 }

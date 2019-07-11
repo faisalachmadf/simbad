@@ -55,7 +55,6 @@ class M_permendagri extends CI_Model {
             "tentang" => $this->input->post('tentang', true),
             "segmen" => $this->input->post('segmen', true),
                     // File
-            "created_at"        => date('Y-m-d H-i:s'),
             "edited_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->where('id', $this->input->post('id'));

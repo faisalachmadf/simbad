@@ -26,7 +26,7 @@
                        <label for="katkabkot_id" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
                         <div class="col-sm-5 float-right">
                          <select name="katkabkot_id" class="selectpicker" data-live-search="true">
-                            <option value="">Silahkan Pilih</option>
+                            <option value=""><?= set_value('katkabkot_id'); ?></option>
                             <?php foreach ($kabkotas as $kk) { ?>
                             <option value="<?=$kk->id;?>" data-tokens="<?= $kk->kabkot;?>"><?= $kk->kabkot;?></option>
                             <?php } ?>
