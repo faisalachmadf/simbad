@@ -66,6 +66,7 @@
                 <input type="file" class="form-control-file" id="file" name="file_upload">
               </div>
             </div>
+
             <hr>
             <div class="form-group row float-right">
               <div class="col-lg-12 ">
@@ -74,7 +75,7 @@
               </div>
             </div>
 
-          </form>
+         <?= form_close(); ?>
 
 
         </div>

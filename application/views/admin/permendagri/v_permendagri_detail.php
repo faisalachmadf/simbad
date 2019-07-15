@@ -32,7 +32,7 @@
                     <div class="form-group row">
                       <label for="tentang" class="col-sm-2 col-form-label">Tentang</label>
                       <div class="col-sm-10">
-                        <b><p><?= $permendagri['tentang']; ?></p></b>
+                        <small><?= $permendagri['tentang']; ?></small>
                    
                     
                       </div>
@@ -41,28 +41,44 @@
                     <div class="form-group row">
                       <label for="segmen" class="col-sm-2 col-form-label">Segmen Batas Daerah</label>
                       <div class="col-sm-10">
-                      <b><p><?= $permendagri['segmen']; ?></p></b>
+                      <small><?= $permendagri['segmen']; ?></small>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="file" class="col-sm-2 col-form-label">File</label>
                       <div class="col-sm-10">
-                          <b><p>isi file</p></b>
+
+                        <?php if( $permendagri['file'] != '') : ?>
+                         <div class="alert alert-success" role="alert"> 
+                          <a href="<?= base_url('assets/permendagri/').$permendagri['file'] ?>" class="btn btn-danger" title="download"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<small><?= $permendagri['file']; ?></small>
+                        </div>
+                        <?php else : ?>
+                          <div class="alert alert-danger" role="alert">
+                            <small>File Peraturan tidak ada !</small>
+                          </div>
+                        <?php endif; ?>
+
                       </div>
                     </div>
 
                      <div class="form-group row">
                       <label for="Tanggal Input" class="col-sm-2 col-form-label">Tanggal Input</label>
                       <div class="col-sm-10">
-                      <b><p><?= $permendagri['created_at']; ?></p></b>
+                      <small><?= date('d F Y H:i', strtotime($permendagri['created_at'])); ?></small>
                       </div>
                     </div>
-
+                   
                     <div class="form-group row">
                       <label for="Tanggal Input" class="col-sm-2 col-form-label">Tanggal Perubahan Data</label>
                       <div class="col-sm-10">
-                      <b><p><?= $permendagri['edited_at']; ?></p></b>
+                      <?php if($permendagri['edited_at'] != '0000-00-00 00:00:00') : ?>
+                      <small><?= date('d F Y H:i', strtotime($permendagri['edited_at'])); ?></small>
+                      <?php else : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <small>Belum ada Perubahan Data !</small>
+                          </div>
+                      <?php endif; ?>
                       </div>
                     </div>
                          <hr>

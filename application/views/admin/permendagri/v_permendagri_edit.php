@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                   
-                  <form action="" method="post">
+                   <?= form_open_multipart('admin/Permendagri/permendagri/edit'); ?>
                    <input type="hidden" name="id" value="<?= $permendagri['id']; ?>">
                    <div class="form-group row">
                       <label for="nomor" class="col-sm-2 col-form-label">Nomor dan Tanggal</label>
@@ -59,9 +59,16 @@
                     <div class="form-group row">
                       <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
                       <div class="col-sm-10">
-                        <input type="file" class="form-control-file" id="file" name="file_upload">
+
+                        <input type="file" class="form-control-file" id="file" name="file_upload"><br/>
+                         <div class="alert alert-success" role="alert"> 
+                         <small>File yang ada :</small> &nbsp<a href="<?= base_url('assets/permendagri/').$permendagri['file'] ?>" class="btn btn-danger" title="download"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<small>
+                          <?= $permendagri['file']; ?></small>
+                        </div>
                       </div>
                     </div>
+
+                     
                          <hr>
                   <div class="form-group row float-right">
                   <div class="col-lg-12 ">
@@ -70,7 +77,7 @@
                   </div>
                 </div>
                   
-                </form>
+                <?= form_close(); ?>
            
                 
                 </div>

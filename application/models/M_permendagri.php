@@ -29,17 +29,18 @@ class M_permendagri extends CI_Model {
     public function insert_data(){
           
         $data =[
-            "nomor" => $this->input->post('nomor', true),
-            "tentang" => $this->input->post('tentang', true),
-            "segmen" => $this->input->post('segmen', true),
-                    // File
+            "nomor"             => $this->input->post('nomor', true),
+            "tentang"           => $this->input->post('tentang', true),
+            "segmen"            => $this->input->post('segmen', true),
+            "file"              => $this->upload->data('file_name'),
             "created_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->insert('permendagri',$data);
         return true;
     }
 
-    public function edit_data($id){
+    public function edit_data($id)
+    {
         
         $this->db->select('*');
         $this->db->from('permendagri');
@@ -51,11 +52,11 @@ class M_permendagri extends CI_Model {
    public function update_data(){
           
         $data =[
-            "nomor" => $this->input->post('nomor', true),
-            "tentang" => $this->input->post('tentang', true),
-            "segmen" => $this->input->post('segmen', true),
-                    // File
-            "edited_at"        => date('Y-m-d H-i:s'),
+            "nomor"             => $this->input->post('nomor', true),
+            "tentang"           => $this->input->post('tentang', true),
+            "segmen"            => $this->input->post('segmen', true),
+            "file"              => $this->upload->data('file_name'),
+            "edited_at"         => date('Y-m-d H-i:s'),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('permendagri', $data);
@@ -63,7 +64,11 @@ class M_permendagri extends CI_Model {
     public function delete_data($id){
         
         $this->db->where('id', $id);
-        $this->db->delete('permendagri');
+        $query = $this->db->get('permendagri');
+        $row = $query->row();
+        unlink("./assets/permendagri/$row->file");
+        $this->db->delete('permendagri', array('id' => $id));
         return true;
     }
+
 }

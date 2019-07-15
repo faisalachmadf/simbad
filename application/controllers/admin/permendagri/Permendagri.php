@@ -74,6 +74,7 @@ class Permendagri extends CI_Controller
 		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
 		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
 
+
 		if ($this->form_validation->run() == FALSE)
         {
 
@@ -86,12 +87,26 @@ class Permendagri extends CI_Controller
         }
         else
         {
+  
+			$config['upload_path']          = './assets/permendagri/';
+	        $config['allowed_types']        = 'gif|jpg|png|pdf|PDF|doc|docx';
+
+	        $this->load->library('upload', $config);
+
+	        if(!$this->upload->do_upload('file_upload')) 
+	        {
+	        	echo $this->upload->display_errors();
+
+	        } 
+        	
+
             $this->M_permendagri->insert_data();
             $this->session->set_flashdata('flash', 'Ditambahkan');
             redirect('admin/permendagri/Permendagri');
         }
 		
 	}
+
 
 	public function detail($id)
 	{
@@ -132,6 +147,19 @@ class Permendagri extends CI_Controller
         }
         else
         {
+
+        	
+    		$config['upload_path']          = './assets/permendagri/';
+            $config['allowed_types']        = 'gif|jpg|png|pdf|PDF|doc|docx';
+
+            $this->load->library('upload', $config);
+
+            if(! $this->upload->do_upload('file_upload')) 
+            {
+            	echo $this->upload->display_errors();
+
+            } 
+        	
             $this->M_permendagri->update_data();
             $this->session->set_flashdata('flash', 'Dirubah');
             redirect('admin/permendagri/Permendagri');
@@ -146,9 +174,5 @@ class Permendagri extends CI_Controller
 		redirect('admin/permendagri/Permendagri');
 	}
 
-	public function upload()
-	{
-		
-	}
 	
 }
