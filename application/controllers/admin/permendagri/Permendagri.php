@@ -12,6 +12,7 @@ class Permendagri extends CI_Controller
 		redirect(base_url().'admin/Login');
         $this->load->library('form_validation');
         $this->load->model('M_permendagri');
+        $this->load->helper(array('form', 'url'));
         /*$this->load->model('M_katprovinsi');*/
 	}
 
@@ -70,6 +71,7 @@ class Permendagri extends CI_Controller
 		$data['judul'] = 'Tambah Permendagri';
 		$data['title'] = 'Tambah Permendagri Segmen Batas';
 
+		
 		$this->validasi();
 
 
@@ -79,28 +81,35 @@ class Permendagri extends CI_Controller
             $this->load->view('admin/template/v_header', $data);
 	        $this->load->view('admin/template/v_menu');
 	        $this->load->view('admin/template/v_navbar');
-			$this->load->view('admin/permendagri/v_permendagri_add');
+			$this->load->view('admin/permendagri/v_permendagri_add', array('error' => '' ));
 			$this->load->view('admin/template/v_footer', $data);
         
         }
         else
         {
-  
-			$config['upload_path']          = './assets/permendagri/';
-	        $config['allowed_types']        = 'gif|jpg|png|pdf|PDF|doc|docx';
 
+  			$config['upload_path']          = './assets/permendagri/';
+            $config['allowed_types']        = 'pdf|PDF';
 	        $this->load->library('upload', $config);
 
 	        if(!$this->upload->do_upload('file_upload')) 
 	        {
-	        	echo $this->upload->display_errors();
+	        	$error = array('error' => $this->upload->display_errors());
+	        	$this->load->view('admin/template/v_header', $data);
+	        	$this->load->view('admin/template/v_menu');
+	        	$this->load->view('admin/template/v_navbar');
+	        	$this->load->view('admin/permendagri/v_permendagri_add', array('error' => '' ));
+	        	$this->load->view('admin/template/v_footer', $data);
 
-	        } 
+	        } else {
+
+	        	$this->M_permendagri->insert_data();
+	            $this->session->set_flashdata('flash', 'Ditambahkan');
+	            redirect('admin/permendagri/Permendagri');
+	        }
         	
-
-            $this->M_permendagri->insert_data();
-            $this->session->set_flashdata('flash', 'Ditambahkan');
-            redirect('admin/permendagri/Permendagri');
+	        	
+            
         }
 		
 	}
@@ -129,7 +138,7 @@ class Permendagri extends CI_Controller
 		$data['permendagri'] = $this->M_permendagri->get_by_id($id);
 		/*$data['nomor'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];*/
 
-		$this->validasi();
+		$this->validasiedit();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -137,7 +146,7 @@ class Permendagri extends CI_Controller
             $this->load->view('admin/template/v_header', $data);
 	        $this->load->view('admin/template/v_menu');
 	        $this->load->view('admin/template/v_navbar');
-			$this->load->view('admin/permendagri/v_permendagri_edit', $data);
+			$this->load->view('admin/permendagri/v_permendagri_edit', array('error' => '' ));
 			$this->load->view('admin/template/v_footer');
         
         }
@@ -148,9 +157,9 @@ class Permendagri extends CI_Controller
         	$upload_file = $_FILES['file_upload']['name'];
 
         	if ($upload_file) {
-        		$config['upload_path']          = './assets/permendagri/';
-        		$config['allowed_types']        = 'pdf|PDF|doc|docx';
         		
+        		$config['upload_path']          = './assets/permendagri/';
+        		$config['allowed_types']        = 'pdf|PDF';
         		$this->load->library('upload', $config);
 
         		if ($this->upload->do_upload('file_upload')) 
@@ -160,8 +169,15 @@ class Permendagri extends CI_Controller
         			$this->db->set('file', $new_file);
 
         		} else {
-        			echo $this->upload->display_errors();
-        		}
+        			$error = array('error' => $this->upload->display_errors());
+		        	$this->load->view('admin/template/v_header', $data);
+		        	$this->load->view('admin/template/v_menu');
+		        	$this->load->view('admin/template/v_navbar');
+		        	$this->load->view('admin/permendagri/v_permendagri_edit', array('error' => '' ));
+		        	$this->load->view('admin/template/v_footer', $data);
+        		
+        		} 
+
         	}
 
             $this->M_permendagri->update_data();
@@ -183,7 +199,20 @@ class Permendagri extends CI_Controller
 		$this->form_validation->set_rules('nomor', 'Nomor dan Tanggal Permendagri', 'required');
 		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
 		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
+		if (empty($_FILES['file_upload']['name']))
+		{
+			$this->form_validation->set_rules('file_upload', 'Aturan', 'required');
+		}
 	}
+
+	public function validasiedit()
+	{
+		$this->form_validation->set_rules('nomor', 'Nomor dan Tanggal Permendagri', 'required');
+		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
+		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
+		
+	}
+	
 
 	
 }

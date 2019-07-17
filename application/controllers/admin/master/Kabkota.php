@@ -42,6 +42,8 @@ class Kabkota extends CI_Controller
 			
                $data[] = array(
 				   $num,
+				  '<img src="' . base_url('assets/logo')."/".$kk->logo .'" style="width:50px; height:50px;">'.
+				   '<i class="fas fa-"></i>',
                    $kk->kabkot,
 					'<a href="' . base_url('admin/master/Kabkota/edit')."/".$kk->id . '" title="Ubah"><i class="fas fa-edit"></i></a>'.'  
 					'.'<a href="' . base_url('admin/master/Kabkota/delete')."/".$kk->id . '" title="hapus" onclick="return confirm(\'Anda yakin hapus data ini?\') ;"><i class="fas fa-trash text-danger"></i></a>',
@@ -53,7 +55,8 @@ class Kabkota extends CI_Controller
                "draw" => $draw,
                "recordsTotal" => $kabkota->num_rows(),
                "recordsFiltered" => $kabkota->num_rows(),
-               "data" => $data
+               "data" => $data,
+
 
             );
           echo json_encode($output);
@@ -67,7 +70,7 @@ class Kabkota extends CI_Controller
 		$data['judul'] = 'Tambah Kab/Kota';
 		$data['title'] = 'Tambah Kab/Kota';
 
-		$this->form_validation->set_rules('kabkot', 'kab/kota', 'trim|required|min_length[3]');
+		$this->validasi();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -81,6 +84,18 @@ class Kabkota extends CI_Controller
         }
         else
         {
+
+        	$config['upload_path']          = './assets/logo/';
+	        $config['allowed_types']        = 'svg|jpg|png';
+
+	        $this->load->library('upload', $config);
+
+	        if(!$this->upload->do_upload('image_upload')) 
+	        {
+	        	echo $this->upload->display_errors();
+
+	        } 
+
             $this->M_katkabkot->insert_data();
             $this->session->set_flashdata('flash', 'Ditambahkan');
             redirect('admin/master/Kabkota');
@@ -95,7 +110,7 @@ class Kabkota extends CI_Controller
 		$data['kabkota'] = $this->M_katkabkot->get_by_id($id);
 		/*$data['nomor'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];*/
 
-		$this->form_validation->set_rules('kabkot', 'kab/kota', 'trim|required|min_length[3]');
+		$this->validasi();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -109,6 +124,29 @@ class Kabkota extends CI_Controller
         }
         else
         {
+
+        	// cek jika ada file yang akan diupload
+
+        	$upload_image = $_FILES['image_upload']['name'];
+
+        	if ($upload_image) {
+        		
+        		$config['allowed_types']        = 'svg|jpg|png';
+        		$config['upload_path']          = './assets/logo/';
+        		
+        		
+        		$this->load->library('upload', $config);
+
+        		if ($this->upload->do_upload('image_upload')) 
+        		{
+        			$new_file = $this->upload->data('file_name');
+        			$this->db->set('logo', $new_file);
+
+        		} else {
+        			echo $this->upload->display_errors();
+        		}
+        	}
+
             $this->M_katkabkot->update_data();
             $this->session->set_flashdata('flash', 'Dirubah');
             redirect('admin/master/Kabkota');
@@ -123,6 +161,14 @@ class Kabkota extends CI_Controller
 		redirect('admin/master/Kabkota');
 	}
 
+	public function validasi()
+	{
+		$this->form_validation->set_rules('kabkot', 'kab/kota', 'trim|required|min_length[3]');
+		if (empty($_FILES['image_upload']['name']))
+		{
+			$this->form_validation->set_rules('image_upload', 'Logo', 'required');
+		}
+	}
 	
 	
 }

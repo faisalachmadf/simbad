@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                   
-                  <form action="" method="post">
+                   <?= form_open_multipart('admin/master/Kabkota/edit'); ?>
                    <input type="hidden" name="id" value="<?= $kabkota['id']; ?>">
                    <div class="form-group row">
                       <label for="kabkot" class="col-sm-2 col-form-label">kabkot dan Tanggal</label>
@@ -34,9 +34,15 @@
                     <div class="form-group row">
                       <label for="file" class="col-sm-2 col-form-label">Upload Gambar Logo</label>
                       <div class="col-sm-10">
-                        <input type="file" class="form-control-file" id="file" name="file_upload">
+                        <input type="file" class="form-control-file" id="file" name="image_upload">
+                        <br>
+                        <div class="alert alert-success" role="alert"> 
+                         <small>Logo Saat ini :</small> &nbsp&nbsp&nbsp<img src="<?= base_url('assets/logo/').$kabkota['logo'] ?>" style="width: 50px; height: 50px;"><small>
+                         
+                        </div>
                       </div>
                     </div>
+
                          <hr>
                   <div class="form-group row float-right">
                   <div class="col-lg-12 ">

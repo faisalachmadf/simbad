@@ -60,10 +60,14 @@
                       <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
                       <div class="col-sm-10">
 
-                        <input type="file" class="form-control-file" id="file" name="file_upload"><br/>
+                        <input type="file" class="form-control-file" id="file" name="file_upload">
+                        <div class="alert alert-danger col-md-3" role="alert" >
+                          <small><strong>file harus berformat PDF !</strong></small>
+                        </div>
                          <div class="alert alert-success" role="alert"> 
                          <small>File yang ada :</small> &nbsp<a href="<?= base_url('assets/permendagri/').$permendagri['file'] ?>" class="btn btn-danger" title="download"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<small>
                           <?= $permendagri['file']; ?></small>
+                          <small class="form-text text-danger">  <?php echo $error;?> </small>
                         </div>
                       </div>
                     </div>

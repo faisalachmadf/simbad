@@ -30,7 +30,8 @@ class M_katkabkot extends CI_Model {
           
         $data =[
             
-            "kabkot" => $this->input->post('kabkot', true),
+            "kabkot"            => $this->input->post('kabkot', true),
+            "logo"              => $this->upload->data('file_name'),
             "created_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->insert('katkabkot',$data);
@@ -49,8 +50,7 @@ class M_katkabkot extends CI_Model {
    public function update_data(){
           
         $data =[
-            "kabkot" => $this->input->post('kabkot', true),
-                    // File
+            "kabkot"            => $this->input->post('kabkot', true),
             "edited_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->where('id', $this->input->post('id'));
@@ -59,7 +59,10 @@ class M_katkabkot extends CI_Model {
     public function delete_data($id){
         
         $this->db->where('id', $id);
-        $this->db->delete('katkabkot');
+        $query = $this->db->get('katkabkot');
+        $row = $query->row();
+        unlink("./assets/logo/$row->logo");
+        $this->db->delete('katkabkot', array('id' => $id));
         return true;
     }
 }

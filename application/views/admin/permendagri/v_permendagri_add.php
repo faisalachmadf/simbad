@@ -17,10 +17,9 @@
           <div class="card-header py-3">
             Form Tambah Data Permendagri
           </div>
-
+          
           <div class="card-body">
-
-            <?= form_open_multipart('admin/Permendagri/permendagri/add'); ?>
+            <?= form_open_multipart('admin/permendagri/Permendagri/add'); ?>
 
             <div class="form-group row">
               <label for="nomor" class="col-sm-2 col-form-label">Nomor dan Tanggal</label>
@@ -64,13 +63,19 @@
               <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
               <div class="col-sm-10">
                 <input type="file" class="form-control-file" id="file" name="file_upload">
+                <br><div class="alert alert-danger col-md-3" role="alert" >
+                  <small><strong>file harus berformat PDF !</strong></small>
+                </div>
+                <small class="form-text text-danger"> <?= form_error('file_upload'); ?></small>
+                <small class="form-text text-danger">  <?php echo $error;?> </small>
+
               </div>
             </div>
 
             <hr>
             <div class="form-group row float-right">
               <div class="col-lg-12 ">
-                <button type="submit" name="add" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                <button type="submit" class="btn btn-primary" value="upload"><i class="fas fa-save"></i> Simpan</button>
                 <a href=" <?= base_url('admin/permendagri/Permendagri'); ?>" class="btn btn btn-danger"><i class="fas fa-undo"></i> Batal</a>
               </div>
             </div>

@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                   
-                  <form action="" method="post">
+                  <?= form_open_multipart('admin/master/Kabkota/add'); ?>
                    
                    <div class="form-group row">
                       <label for="kabkot" class="col-sm-2 col-form-label">Nama Kab/Kota</label>
@@ -33,9 +33,10 @@
 
 
                     <div class="form-group row">
-                      <label for="file" class="col-sm-2 col-form-label">Upload File Image</label>
+                      <label for="file" class="col-sm-2 col-form-label">Upload Logo</label>
                       <div class="col-sm-10">
-                        <input type="file" class="form-control-file" id="file" name="file_upload">
+                        <input type="file" class="form-control-file" id="file" name="image_upload">
+                         <small class="form-text text-danger"><?= form_error('image_upload'); ?></small>
                       </div>
                     </div>
                          <hr>
@@ -46,7 +47,7 @@
                   </div>
                 </div>
                   
-                </form>
+                <?= form_close(); ?>
            
                 
                 </div>

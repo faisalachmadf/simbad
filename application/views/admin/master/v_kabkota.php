@@ -39,6 +39,7 @@
                      <thead class="thead-dark  table-striped"> 
                       <tr>
                         <th scope="col" style="width: 50px">No</th>
+                        <th scope="col" style="width: 50px">Logo</th>
                         <th scope="col">Kabupaten/Kota</th>
                         <th scope="col">Aksi</th>
                       </tr>
