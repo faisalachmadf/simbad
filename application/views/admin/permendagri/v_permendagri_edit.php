@@ -72,7 +72,7 @@
                          <hr>
                   <div class="form-group row float-right">
                   <div class="col-lg-12 ">
-                    <button type="submit" name="add" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                    <button type="submit" name="edit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                      <a href=" <?= base_url('admin/permendagri/Permendagri');?>" class="btn btn btn-danger"><i class="fas fa-undo"></i> Batal</a>
                   </div>
                 </div>

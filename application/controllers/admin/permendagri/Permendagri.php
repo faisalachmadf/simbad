@@ -70,9 +70,7 @@ class Permendagri extends CI_Controller
 		$data['judul'] = 'Tambah Permendagri';
 		$data['title'] = 'Tambah Permendagri Segmen Batas';
 
-		$this->form_validation->set_rules('nomor', 'Nomor dan Tanggal Permendagri', 'required');
-		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
-		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
+		$this->validasi();
 
 
 		if ($this->form_validation->run() == FALSE)
@@ -131,9 +129,7 @@ class Permendagri extends CI_Controller
 		$data['permendagri'] = $this->M_permendagri->get_by_id($id);
 		/*$data['nomor'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];*/
 
-		$this->form_validation->set_rules('nomor', 'Nomor dan Tanggal Permendagri', 'required');
-		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
-		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
+		$this->validasi();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -147,19 +143,27 @@ class Permendagri extends CI_Controller
         }
         else
         {
+        	// cek jika ada file yang akan diupload
 
-        	
-    		$config['upload_path']          = './assets/permendagri/';
-            $config['allowed_types']        = 'gif|jpg|png|pdf|PDF|doc|docx';
+        	$upload_file = $_FILES['file_upload']['name'];
 
-            $this->load->library('upload', $config);
+        	if ($upload_file) {
+        		$config['upload_path']          = './assets/permendagri/';
+        		$config['allowed_types']        = 'pdf|PDF|doc|docx';
+        		
+        		$this->load->library('upload', $config);
 
-            if(! $this->upload->do_upload('file_upload')) 
-            {
-            	echo $this->upload->display_errors();
+        		if ($this->upload->do_upload('file_upload')) 
+        		{
 
-            } 
-        	
+        			$new_file = $this->upload->data('file_name');
+        			$this->db->set('file', $new_file);
+
+        		} else {
+        			echo $this->upload->display_errors();
+        		}
+        	}
+
             $this->M_permendagri->update_data();
             $this->session->set_flashdata('flash', 'Dirubah');
             redirect('admin/permendagri/Permendagri');
@@ -172,6 +176,13 @@ class Permendagri extends CI_Controller
 		$this->M_permendagri->delete_data($id);
 		$this->session->set_flashdata('flash', 'Dihapus');
 		redirect('admin/permendagri/Permendagri');
+	}
+
+	public function validasi()
+	{
+		$this->form_validation->set_rules('nomor', 'Nomor dan Tanggal Permendagri', 'required');
+		$this->form_validation->set_rules('tentang', 'Tentang', 'trim|required|min_length[3]');
+		$this->form_validation->set_rules('segmen', 'Segmen', 'required|min_length[3]');
 	}
 
 	

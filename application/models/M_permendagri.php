@@ -55,12 +55,13 @@ class M_permendagri extends CI_Model {
             "nomor"             => $this->input->post('nomor', true),
             "tentang"           => $this->input->post('tentang', true),
             "segmen"            => $this->input->post('segmen', true),
-            "file"              => $this->upload->data('file_name'),
+            /*"file"              => $this->upload->data('file_name'),*/
             "edited_at"         => date('Y-m-d H-i:s'),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('permendagri', $data);
     }
+    
     public function delete_data($id){
         
         $this->db->where('id', $id);
