@@ -162,20 +162,21 @@ class Permendagri extends CI_Controller
         		$config['allowed_types']        = 'pdf|PDF';
         		$this->load->library('upload', $config);
 
-        		if ($this->upload->do_upload('file_upload')) 
+        		if (!$this->upload->do_upload('file_upload')) 
         		{
-
-        			$new_file = $this->upload->data('file_name');
-        			$this->db->set('file', $new_file);
+        			$error = array('error' => $this->upload->display_errors());
+        			$this->load->view('admin/template/v_header', $data);
+        			$this->load->view('admin/template/v_menu');
+        			$this->load->view('admin/template/v_navbar');
+        			$this->load->view('admin/permendagri/v_permendagri_edit', array('error' => '' ));
+        			$this->load->view('admin/template/v_footer', $data);
+        			
 
         		} else {
-        			$error = array('error' => $this->upload->display_errors());
-		        	$this->load->view('admin/template/v_header', $data);
-		        	$this->load->view('admin/template/v_menu');
-		        	$this->load->view('admin/template/v_navbar');
-		        	$this->load->view('admin/permendagri/v_permendagri_edit', array('error' => '' ));
-		        	$this->load->view('admin/template/v_footer', $data);
-        		
+        			
+        			$new_file = $this->upload->data('file_name');
+        			$this->db->set('file', $new_file);
+        			
         		} 
 
         	}
