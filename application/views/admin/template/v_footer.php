@@ -68,8 +68,8 @@
   <script src="<?= base_url('assets/back') ?> /js/demo/chart-area-demo.js"></script>
   <script src="<?= base_url('assets/back') ?> /js/demo/chart-pie-demo.js"></script>
   
-  <script src="<?= base_url('assets/back') ?>/sweetalert/sweetalert2.all.min.js"></script>
-  <script src="<?= base_url('assets/back') ?>/js/myscript.js"></script>
+  <script src="<?= base_url('assets/back') ?> /sweetalert/sweetalert2.all.min.js"></script>
+  <script src="<?= base_url('assets/back') ?> /js/myscript.js"></script>
     
 </body>
 

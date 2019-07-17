@@ -1,16 +1,15 @@
-      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-           <div class="carousel-item active">
-                  <img class="d-block w-100" style="height: 200px;" src="<?= base_url('assets/front'); ?> /assets/images/petakabkot.png" alt="First slide">
+     <div class="hero-home">
+          <div class="container">
+            <div class="row text-">
+              <div class="col-sm-12 col-lg-6">
+                <div class="intro-block">
+                  <h1>Segmen Batas <br/>Provinsi <br/>Jawa Barat</h1>
+                  <p>Biro Pemerintahan dan Kerja Sama</p>
                 </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" style="height: 200px;" src="<?= base_url('assets/front'); ?> /assets/images/petaprov.png" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" style="height: 200px;" src="<?= base_url('assets/front'); ?> /assets/images/petakabkot.png" alt="Third slide">
-                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
     <div id="main" class="main" style="margin-top: 50px;">
         <div class="row">
@@ -34,9 +33,9 @@
                   
                   
                       <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><p>Kab. A</p></li>
-                        <li class="list-group-item"><p>Kab. B</p></li>
-                        <li class="list-group-item"><p>Kab. C</p></li>
+                        <li class="list-group-item"><p><a href="#">Prov. Jawa Barat dengan Prov. DKI Jakarta</a></p></li>
+                        <li class="list-group-item"><p><a href="#">Prov. Jawa Barat dengan Prov. Banten</p></a></li>
+                        <li class="list-group-item"><p><a href="#">Prov. Jawa Barat dengan Prov. Jawa Tengah</p></a></li>
                         
                       </ul>
                     </div>
@@ -121,9 +120,9 @@
 
  
         <!-- Scroll To Top -->
-          <div id="back-top" class="bk-top">
+          <div class="bk-top">
             <div class="bk-top-txt">
-              <a class="back-to-top js-scroll-trigger" href="#main">top</a>
+              <a class="back-to-top js-scroll-trigger" href="#main">Konten</a>
              </div>
           </div>
         <!-- Scroll To Top Ends-->
