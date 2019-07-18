@@ -57,21 +57,7 @@
               <div class="contact-details text-center">
                 <i class="ion-ios-home-outline"></i>
                 <hr>
-                <div class="row">
-                  <div class="col-sm-4 wow fadeInDown" data-wow-delay=".1s">
-                    <h1>L 32 Vihar, Greater Noida <br>
-                      New Delhi, India.
-                    </h1>
-                  </div>
-                  <div class="col-sm-4 wow fadeInDown" data-wow-delay=".2s">
-                    <h1>hello@parker.co</h1>
-                    <h1>+91-1234567890</h1>
-                  </div>
-                  <div class="col-sm-4 wow fadeInDown" data-wow-delay=".3s">
-                    <h1>24/7 client support</h1>
-                    <h1>support@parker.co</h1>
-                  </div>
-                </div>
+               
               </div>
             </div>
           </div>

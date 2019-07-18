@@ -92,7 +92,12 @@ class Kabkota extends CI_Controller
 
 	        if(!$this->upload->do_upload('image_upload')) 
 	        {
-	        	echo $this->upload->display_errors();
+	        	$error = array('error' => $this->upload->display_errors());
+	        	$this->load->view('admin/template/v_header', $data);
+	        	$this->load->view('admin/template/v_menu');
+	        	$this->load->view('admin/template/v_navbar');
+	        	$this->load->view('admin/master/v_kabkota_add', array('error' => '' ));
+	        	$this->load->view('admin/template/v_footer', $data);
 
 	        } 
 
@@ -110,7 +115,7 @@ class Kabkota extends CI_Controller
 		$data['kabkota'] = $this->M_katkabkot->get_by_id($id);
 		/*$data['nomor'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];*/
 
-		$this->validasi();
+		$this->validasiedit();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -134,16 +139,21 @@ class Kabkota extends CI_Controller
         		$config['allowed_types']        = 'svg|jpg|png';
         		$config['upload_path']          = './assets/logo/';
         		
-        		
         		$this->load->library('upload', $config);
 
-        		if ($this->upload->do_upload('image_upload')) 
+        		if (!$this->upload->do_upload('image_upload')) 
         		{
-        			$new_file = $this->upload->data('file_name');
-        			$this->db->set('logo', $new_file);
+        			$error = array('error' => $this->upload->display_errors());
+        			$this->load->view('admin/template/v_header', $data);
+        			$this->load->view('admin/template/v_menu');
+        			$this->load->view('admin/template/v_navbar');
+        			$this->load->view('admin/permendagri/v_kabkota_edit', array('error' => '' ));
+        			$this->load->view('admin/template/v_footer', $data);
 
         		} else {
-        			echo $this->upload->display_errors();
+
+        			$new_file = $this->upload->data('file_name');
+        			$this->db->set('logo', $new_file);
         		}
         	}
 
@@ -168,6 +178,12 @@ class Kabkota extends CI_Controller
 		{
 			$this->form_validation->set_rules('image_upload', 'Logo', 'required');
 		}
+	}
+
+	public function validasiedit()
+	{
+		$this->form_validation->set_rules('kabkot', 'kab/kota', 'trim|required|min_length[3]');
+		
 	}
 	
 	

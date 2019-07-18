@@ -62,10 +62,10 @@
                       </div>
                     </div>
 
-                     <div class="form-group row">
+                    <div class="form-group row">
                       <label for="Tanggal Input" class="col-sm-2 col-form-label">Tanggal Input</label>
                       <div class="col-sm-10">
-                      <small><?= date('d F Y H:i', strtotime($permendagri['created_at'])); ?></small>
+                        <small><?= date('d F Y H:i', strtotime($permendagri['created_at'])); ?></small>
                       </div>
                     </div>
                    

@@ -30,7 +30,7 @@ class M_provinsi extends CI_Model {
             "id_katprov" => $this->input->post('id_katprov', true),
             "kabkot" => $this->input->post('kabkot', true),
             "aturan" => $this->input->post('aturan', true),
-                    // File
+            "file"              => $this->upload->data('file_name'),
             "created_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->insert('provinsi',$data);
@@ -53,7 +53,7 @@ class M_provinsi extends CI_Model {
             "kabkot" => $this->input->post('kabkot', true),
             "aturan" => $this->input->post('aturan', true),
                     // File
-            "created_at"        => date('Y-m-d H-i:s'),
+            "edited_at"        => date('Y-m-d H-i:s'),
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('provinsi', $data);
@@ -61,7 +61,11 @@ class M_provinsi extends CI_Model {
     public function delete_data($id){
         
         $this->db->where('id', $id);
-        $this->db->delete('provinsi');
+        $query = $this->db->get('provinsi');
+        $row = $query->row();
+        unlink("./assets/segmenprovinsi/$row->file");
+        $this->db->delete('provinsi', array('id' => $id));
         return true;
+
     }
 }

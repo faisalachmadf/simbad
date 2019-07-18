@@ -38,7 +38,8 @@
                   <table class="table" id="Kabkota">
                      <thead class="thead-dark  table-striped"> 
                       <tr>
-                        <th scope="col">No</th>
+                        <th scope="col" style="width: 1%;">No</th>
+                        <th scope="col" style="width: 50px;">Logo</th>
                         <th scope="col" style="width: 120px;">Kabupaten/Kota</th>
                         <th scope="col">Berbatasan dengan Kab/Kota</th>
                         <th scope="col">Penetapan</th>

@@ -45,19 +45,43 @@
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
+                  <div class="form-group row">
+                      <label for="file" class="col-sm-2 col-form-label">File</label>
                       <div class="col-sm-10">
-                          <b><p>isi file</p></b>
+
+                        <?php if( $provinsi['file'] != '') : ?>
+                         <div class="alert alert-success" role="alert"> 
+                          <a href="<?= base_url('assets/segmenprovinsi/').$provinsi['file'] ?>" class="btn btn-danger" title="download"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<small><?= $provinsi['file']; ?></small>
+                        </div>
+                        <?php else : ?>
+                          <div class="alert alert-danger" role="alert">
+                            <small>File Peraturan tidak ada !</small>
+                          </div>
+                        <?php endif; ?>
+
                       </div>
                     </div>
 
-                     <div class="form-group row">
+                    <div class="form-group row">
                       <label for="Tanggal Input" class="col-sm-2 col-form-label">Tanggal Input</label>
                       <div class="col-sm-10">
-                      <b><p><?= $provinsi['created_at']; ?></p></b>
+                        <small><?= date('d F Y H:i', strtotime($provinsi['created_at'])); ?></small>
                       </div>
                     </div>
+
+                    <div class="form-group row">
+                      <label for="Tanggal Input" class="col-sm-2 col-form-label">Tanggal Perubahan Data</label>
+                      <div class="col-sm-10">
+                      <?php if($provinsi['edited_at'] != '0000-00-00 00:00:00') : ?>
+                      <small><?= date('d F Y H:i', strtotime($provinsi['edited_at'])); ?></small>
+                      <?php else : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <small>Belum ada Perubahan Data !</small>
+                          </div>
+                      <?php endif; ?>
+                      </div>
+                    </div>
+
                          <hr>
                   <div class="form-group row float-right">
                   <div class="col-lg-12 ">

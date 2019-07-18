@@ -10,6 +10,7 @@ class Permendagri extends CI_Controller
         //  Cek Sesi Login
         if ($this->session->userdata('is_logged') == '')
 		redirect(base_url().'admin/Login');
+		$this->load->library('session');
         $this->load->library('form_validation');
         $this->load->model('M_permendagri');
         $this->load->helper(array('form', 'url'));
@@ -44,7 +45,7 @@ class Permendagri extends CI_Controller
                $data[] = array(
 				   $num,
 					'<a href="' . base_url('admin/permendagri/Permendagri/detail')."/".$permen->id .'">' .$permen->nomor. '</a>',
-                    $permen->tentang,
+                   '<a href="' . base_url('assets/permendagri')."/".$permen->file .'"><i class="far fa-file-pdf text-danger"></i></a>'. '<br/><small>'. $permen->tentang. '</small>',
 					/*'<a href="' . base_url('admin/permendagri/Permendagri/detail')."/".$permen->id . '" class="btn btn-circle btn-warning" title="Detil"><i class="fas fa-bars"></i></a>'.' 
 					'.*/
 					'<a href="' . base_url('admin/permendagri/Permendagri/edit')."/".$permen->id . '" title="Ubah"><i class="fas fa-edit"></i></a>'.'  
@@ -136,7 +137,7 @@ class Permendagri extends CI_Controller
 		$data['judul'] = 'Ubah ';
 		$data['title'] = 'Ubah Segmen Batas Provinsi';
 		$data['permendagri'] = $this->M_permendagri->get_by_id($id);
-		/*$data['nomor'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];*/
+		
 
 		$this->validasiedit();
 

@@ -21,7 +21,8 @@
 
                 <div class="card-body">
                   
-                  <form action="" method="post">
+                  <?= form_open_multipart('admin/segmenbatas/Provinsi/add'); ?>
+
                     <div class="form-group row">
                        <label for="id_katprov" class="col-sm-2 col-form-label">Segmen Perbatasan</label>
                         <div class="col-sm-10">
@@ -59,8 +60,15 @@
                       <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
                       <div class="col-sm-10">
                         <input type="file" class="form-control-file" id="file" name="file_upload">
+                        <br><div class="alert alert-danger col-md-5" role="alert" >
+                          <small><strong>file harus berformat PDF | DOC | DOCX !</strong></small>
+                        </div>
+                        <small class="form-text text-danger"> <?= form_error('file_upload'); ?></small>
+                        <small class="form-text text-danger">  <?php echo $error;?> </small>
+
                       </div>
                     </div>
+
                          <hr>
                   <div class="form-group row float-right">
                   <div class="col-lg-12 ">
@@ -69,7 +77,7 @@
                   </div>
                 </div>
                   
-                </form>
+                <?= form_close(); ?>
            
                 
                 </div>

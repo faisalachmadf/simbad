@@ -1,4 +1,4 @@
-      <div class="hero-home">
+    <div class="hero-home">
           <div class="container">
             <div class="row text-">
               <div class="col-sm-12 col-lg-6">
@@ -125,10 +125,17 @@
 
 
               <div class="col-7" style="margin-left: 25px;">
+                  <div class="form wow fadeInLeft float-right" data-wow-delay="0.3s">
+                      <form id="chimp-form" class="subscribe-form wow zoomIn" action="#" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
+                        <input class="mail" id="chimp-#" type="#" name="#" placeholder="Cari" autocomplete="off"><input class="submit-button" type="submit" value="Carikan">
+                      </form>
+                      <div id="response"></div>
+                    </div>
                 <div class=" wow fadeInDown">
                   <div class="row">
                     <p class="h2 float-right"> Kab/Kota ...</p>
                   </div>
+                  <br>
                   <hr>
                   <br>
                   <br>
@@ -186,21 +193,7 @@
             <div class="contact-details text-center">
               <i class="ion-ios-home-outline"></i>
               <hr>
-              <div class="row">
-                <div class="col-sm-4 wow fadeInDown" data-wow-delay=".1s">
-                  <h1>L 32 Vihar, Greater Noida <br>
-                    New Delhi, India.
-                  </h1>
-                </div>
-                <div class="col-sm-4 wow fadeInDown" data-wow-delay=".2s">
-                  <h1>hello@parker.co</h1>
-                  <h1>+91-1234567890</h1>
-                </div>
-                <div class="col-sm-4 wow fadeInDown" data-wow-delay=".3s">
-                  <h1>24/7 client support</h1>
-                  <h1>support@parker.co</h1>
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>

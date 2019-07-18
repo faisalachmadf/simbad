@@ -14,6 +14,7 @@ class Kabkota extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('M_kabkota');
         $this->load->model('M_katkabkot');
+        $this->load->helper(array('form', 'url'));
         /*$this->load->model('M_katprovinsi');*/
 	}
 
@@ -21,7 +22,7 @@ class Kabkota extends CI_Controller
 	{
 		$data['title'] = 'Segmen Batas Kabupaten/Kota';
 		$data['judul'] = 'Segmen Batas Kabupaten/Kota';
-		$data['kabkotas']  = $this->M_kabkota->ambil_semua_kabkota();
+		$data['kabkotas']  = $this->M_kabkota->ambil_semua_katkabkota();
 
 		/*$data['provinsi'] = $this->M_kabkota->getAllProvinsi();*/
 		$this->load->view('admin/template/v_header', $data);
@@ -29,6 +30,8 @@ class Kabkota extends CI_Controller
 		$this->load->view('admin/template/v_navbar', $data);
 		$this->load->view('admin/segmenbatas/v_kabkota', $data);
 	}
+
+	
 
 	public function get_data(){
 		$draw = intval($this->input->get("draw"));
@@ -39,25 +42,28 @@ class Kabkota extends CI_Controller
 			
           $data = array();
 		  $num=0;
-          foreach($kabkota->result() as $kk) {
+          foreach($kabkota as $kk) {
 			$num=$num+1;
 
 			$data[] = array(
 				$num,
-				$kk->katkabkot_id,
+
+				'<img src="' . base_url('assets/logo')."/".$kk->logo .'" style="width:50px; height:50px;">'.
+				'<i class="fas fa-"></i>',
+				$kk->kabkot,
 				/*  '<a href="' . base_url('admin/segmenbatas/Kabkota/detail')."/".$kk->id .'">' .*/
 				$kk->batas . '</a>',
-				$kk->aturan,
+				'<a href="' . base_url('assets/segmenkabkota')."/".$kk->file .'"><i class="far fa-file-pdf text-danger"></i></a>'. '<br/><small>'. $kk->aturan. '</small>',
 				'<a href="' . base_url('admin/segmenbatas/Kabkota/edit') . "/" . $kk->id . '" title="Ubah"><i class="fas fa-edit"></i></a>' . '  
-					' . '<a href="' . base_url('admin/segmenbatas/Kabkota/delete') . "/" . $kk->id . '" title="hapus" onclick="return confirm(\'Anda yakin hapus data ini?\') ;"><i class="fas fa-trash text-danger"></i></a>',
+				' . '<a href="' . base_url('admin/segmenbatas/Kabkota/delete') . "/" . $kk->id . '" title="hapus" onclick="return confirm(\'Anda yakin hapus data ini?\') ;"><i class="fas fa-trash text-danger"></i></a>',
 				/*	<?=base_url('admin/suratkeluar/Suratkeluar2/datatable')?>*/
 			);
           }
 
           $output = array(
                "draw" => $draw,
-               "recordsTotal" => $kabkota->num_rows(),
-               "recordsFiltered" => $kabkota->num_rows(),
+               "recordsTotal" => $kabkota,
+               "recordsFiltered" => $kabkota,
                "data" => $data
 
             );
@@ -69,24 +75,44 @@ class Kabkota extends CI_Controller
 	{
 		$data['judul'] = 'Tambah';
 		$data['title'] = 'Tambah Segmen Batas Kabupaten/Kota';
-		$data['kabkotas']  = $this->M_kabkota->ambil_semua_kabkota();
+		$data['kabkotas']  = $this->M_kabkota->ambil_semua_katkabkota();
+		$data['kabkotass']  = $this->M_kabkota->ambil_semua_katkabkota();
 
-		$this->form_validation->set_rules('katkabkot_id', 'Kabupaten/Kota Perbatasan', 'required');
-		$this->form_validation->set_rules('batas', 'Kabupaten/Kota Batas', 'trim|required|min_length[3]|max_length[255]');
-		$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]');
-		/*$this->form_validation->set_rules('file', 'File', 'trim|required|min_length[3]');*/
+		$this->validasi();
 
 		if ($this->form_validation->run() == FALSE) {
 
 			$this->load->view('admin/template/v_header', $data);
 			$this->load->view('admin/template/v_menu', $data);
 			$this->load->view('admin/template/v_navbar', $data);
-			$this->load->view('admin/segmenbatas/v_kabkota_add');
+			$this->load->view('admin/segmenbatas/v_kabkota_add' , array('error' => '' ));
 			$this->load->view('admin/template/v_footer');
-		} else {
-			$this->M_kabkota->insert_data();
-			$this->session->set_flashdata('flash', 'Ditambahkan');
-			redirect('admin/segmenbatas/Kabkota');
+		} 
+		else 
+		{
+
+			$config['upload_path']          = './assets/segmenkabkota/';
+			$config['allowed_types']        = 'pdf|PDF|doc|docx';
+			$this->load->library('upload', $config);
+
+			if(!$this->upload->do_upload('file_upload')) 
+			{
+				$error = array('error' => $this->upload->display_errors());
+				$this->load->view('admin/template/v_header', $data);
+				$this->load->view('admin/template/v_menu');
+				$this->load->view('admin/template/v_navbar');
+				$this->load->view('admin/segmenbatas/v_kabkota_add', array('error' => '' ));
+				$this->load->view('admin/template/v_footer', $data);
+
+			} else {
+
+				$this->M_kabkota->insert_data();
+				$this->session->set_flashdata('flash', 'Ditambahkan');
+				redirect('admin/segmenbatas/Kabkota');
+			}
+
+
+			
 		}
 		
 	}
@@ -108,14 +134,9 @@ class Kabkota extends CI_Controller
 		$data['judul'] = 'Ubah ';
 		$data['title'] = 'Ubah Segmen Batas Kabupaten/Kota';
 		$data['kabkotapilih'] = $this->M_kabkota->get_by_id($id);
-		$data['kabkotas']  = $this->M_kabkota->ambil_semua_kabkota($id);
+		$data['kabkotas']  = $this->M_kabkota->ambil_semua_katkabkota($id);
 
-		
-
-		$this->form_validation->set_rules('katkabkot_id', 'Kabupaten/Kota Perbatasan', 'required');
-		$this->form_validation->set_rules('batas', 'Kabupaten/Kota Batas', 'trim|required|min_length[3]|max_length[255]');
-		$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]');
-		/*$this->form_validation->set_rules('file', 'File', 'trim|required|min_length[3]');*/
+		$this->validasiedit();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -146,10 +167,24 @@ class Kabkota extends CI_Controller
 	public function validasi()
     {
         
-        $this->form_validation->set_rules('kabkot', 'Kabupaten/Kota', 'trim|required|min_length[3]|max_length[255]');
-		$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]|max_length[255]');
-       
+    	$this->form_validation->set_rules('katkabkot_id', 'Kabupaten/Kota Perbatasan', 'required');
+    	$this->form_validation->set_rules('batas', 'Kabupaten/Kota Batas', 'required');
+    	$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]');
+    	if (empty($_FILES['file_upload']['name']))
+    	{
+    		$this->form_validation->set_rules('file_upload', 'Aturan', 'required');
+    	}
+
+    }
+
+    public function validasiedit()
+    {
         
+    	$this->form_validation->set_rules('katkabkot_id', 'Kabupaten/Kota Perbatasan', 'required');
+    	$this->form_validation->set_rules('batas', 'Kabupaten/Kota Batas', 'required');
+    	$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]');
+    	
+
     }
 
 	

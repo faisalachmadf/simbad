@@ -13,6 +13,7 @@ class Provinsi extends CI_Controller
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->model('M_provinsi');
+        $this->load->helper(array('form', 'url'));
         /*$this->load->model('M_katprovinsi');*/
 	}
 
@@ -46,7 +47,7 @@ class Provinsi extends CI_Controller
 				$prov->id_katprov,
 				'<a href="' . base_url('admin/segmenbatas/Provinsi/detail') . "/" . $prov->id . '">' .
 					$prov->kabkot . '</a>',
-				$prov->aturan,
+				'<a href="' . base_url('assets/segmenprovinsi')."/".$prov->file .'"><i class="far fa-file-pdf text-danger"></i></a>'. '<br/><small>'. $prov->aturan. '</small>',
 				/*'<a href="' . base_url('admin/segmenbatas/Provinsi/detail')."/".$prov->id . '" class="btn btn-circle btn-warning" title="Detil"><i class="fas fa-bars"></i></a>'.' 
 					'.*/
 				'<a href="' . base_url('admin/segmenbatas/Provinsi/edit') . "/" . $prov->id . '" title="Ubah"><i class="fas fa-edit"></i></a>' . '  
@@ -81,15 +82,33 @@ class Provinsi extends CI_Controller
             $this->load->view('admin/template/v_header', $data);
 	        $this->load->view('admin/template/v_menu');
 	        $this->load->view('admin/template/v_navbar');
-			$this->load->view('admin/segmenbatas/v_provinsi_add');
+			$this->load->view('admin/segmenbatas/v_provinsi_add', array('error' => '' ));
 			$this->load->view('admin/template/v_footer');
         
         }
         else
         {
-            $this->M_provinsi->insert_data();
-            $this->session->set_flashdata('flash', 'Ditambahkan');
-            redirect('admin/segmenbatas/Provinsi');
+        	$config['upload_path']          = './assets/segmenprovinsi/';
+            $config['allowed_types']        = 'pdf|PDF|doc|docx';
+	        $this->load->library('upload', $config);
+
+	        if(!$this->upload->do_upload('file_upload')) 
+	        {
+	        	$error = array('error' => $this->upload->display_errors());
+	        	$this->load->view('admin/template/v_header', $data);
+	        	$this->load->view('admin/template/v_menu');
+	        	$this->load->view('admin/template/v_navbar');
+	        	$this->load->view('admin/permendagri/v_provinsi_add', array('error' => '' ));
+	        	$this->load->view('admin/template/v_footer', $data);
+
+	        } else {
+
+	        	$this->M_provinsi->insert_data();
+	        	$this->session->set_flashdata('flash', 'Ditambahkan');
+	        	redirect('admin/segmenbatas/Provinsi');
+	        }
+
+            
         }
 		
 	}
@@ -114,7 +133,7 @@ class Provinsi extends CI_Controller
 		$data['provinsi'] = $this->M_provinsi->get_by_id($id);
 		$data['id_katprov'] = ['Prov. Jawa Barat dengan Prov. DKI Jakarta', 'Prov. Jawa Barat dengan Prov. Banten', 'Prov. Jawa Barat dengan Prov. Jawa Tengah'];
 
-		$this->validasi();
+		$this->validasiedit();
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -122,12 +141,41 @@ class Provinsi extends CI_Controller
             $this->load->view('admin/template/v_header', $data);
 	        $this->load->view('admin/template/v_menu');
 	        $this->load->view('admin/template/v_navbar');
-			$this->load->view('admin/segmenbatas/v_provinsi_edit', $data);
+			$this->load->view('admin/segmenbatas/v_provinsi_edit', array('error' => '' ));
 			$this->load->view('admin/template/v_footer');
         
         }
         else
         {
+        	// cek jika ada file yang akan diupload
+
+        	$upload_file = $_FILES['file_upload']['name'];
+
+        	if ($upload_file) {
+        		
+        		$config['upload_path']          = './assets/segmenprovinsi/';
+        		$config['allowed_types']        = 'pdf|PDF|doc|docx';
+        		$this->load->library('upload', $config);
+
+        		if (!$this->upload->do_upload('file_upload')) 
+        		{
+        			$error = array('error' => $this->upload->display_errors());
+        			$this->load->view('admin/template/v_header', $data);
+        			$this->load->view('admin/template/v_menu');
+        			$this->load->view('admin/template/v_navbar');
+        			$this->load->view('admin/segmenbatas/v_provinsi_edit', array('error' => '' ));
+        			$this->load->view('admin/template/v_footer', $data);
+        			
+
+        		} else {
+        			
+        			$new_file = $this->upload->data('file_name');
+        			$this->db->set('file', $new_file);
+        			
+        		} 
+
+        	}
+
             $this->M_provinsi->update_data();
             $this->session->set_flashdata('flash', 'Dirubah');
             redirect('admin/segmenbatas/Provinsi');
@@ -147,7 +195,17 @@ class Provinsi extends CI_Controller
         $this->form_validation->set_rules('id_katprov', 'Provinsi Perbatasan', 'required');
         $this->form_validation->set_rules('kabkot', 'Kabupaten/Kota', 'trim|required|min_length[3]|max_length[255]');
 		$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]|max_length[255]');
+		if (empty($_FILES['file_upload']['name']))
+		{
+			$this->form_validation->set_rules('file_upload', 'Aturan', 'required');
+		}
+    }
 
+    public function validasiedit()
+    {
+        $this->form_validation->set_rules('id_katprov', 'Provinsi Perbatasan', 'required');
+        $this->form_validation->set_rules('kabkot', 'Kabupaten/Kota', 'trim|required|min_length[3]|max_length[255]');
+		$this->form_validation->set_rules('aturan', 'Aturan', 'trim|required|min_length[3]|max_length[255]');
     }
 
 	

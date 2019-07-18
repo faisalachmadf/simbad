@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                   
-                  <form action="" method="post">
+                  <?= form_open_multipart('admin/segmenbatas/Provinsi/edit'); ?>
                     <input type="hidden" name="id" value="<?= $provinsi['id']; ?>">
                     <div class="form-group row">
                        <label for="id_katprov" class="col-sm-2 col-form-label">Segmen Perbatasan</label>
@@ -61,10 +61,19 @@
                       </div>
                     </div>
 
-                    <div class="form-group row">
+                     <div class="form-group row">
                       <label for="file" class="col-sm-2 col-form-label">Upload File Peraturan</label>
                       <div class="col-sm-10">
-                        <input type="file" class="form-control-file" id="file" name="file_upload" value="#">
+
+                        <input type="file" class="form-control-file" id="file" name="file_upload">
+                        <div class="alert alert-danger col-md-3" role="alert" >
+                          <small><strong>file harus berformat PDF !</strong></small>
+                        </div>
+                         <div class="alert alert-success" role="alert"> 
+                         <small>File yang ada :</small> &nbsp<a href="<?= base_url('assets/segmenprovinsi/').$provinsi['file'] ?>" class="btn btn-danger" title="download"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<small>
+                          <?= $provinsi['file']; ?></small>
+                          <small class="form-text text-danger">  <?php echo $error;?> </small>
+                        </div>
                       </div>
                     </div>
                          <hr>
