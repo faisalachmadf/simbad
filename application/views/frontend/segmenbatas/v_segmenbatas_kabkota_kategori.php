@@ -42,54 +42,56 @@
 
 
           <br>
-           <?php foreach($katkabkota as $k) { ?>
-          <div class="card">
-           
-            <button type="button" class="btn btn-light text-justify">
-             <?= $k->kabkot ?>
-              &nbsp<span class="badge badge-light"> <img src="<?= base_url('assets/logo/').$k->logo ?>" style="width:15px; height:15px;"> </span>
-            </button>
-                <!-- <a href="<?= base_url('segmenbatas/Kabkota/kategori').$k->katkabkota_id ?>"> 
-              
-                </a>-->
-             
-          </div>
-           <?php } ?>
 
-       </div>
+          <div class="card">
+
+<!-- 
+            <ul class="list-group list-group-flush">
+              
+              <?php foreach($katkabkota as $k) { ?>
+                <li class="list-group-item text-center">
+       
+           <img src="<?= base_url('assets/logo/').$k->logo ?>" style="width:50px; height:50px;">
+             
+                <p><?= $k->kabkot ?></p>
+              </li>
+              <?php } ?>
+          
+            </ul> -->
+          </div>
+        </div>
 
 
         <div class="col-7" style="margin-left: 25px;">
           <div class=" wow fadeInDown">
             <div class="row">
-             <!--  <p class="h2 float-right"> Kab/Kota ...</p> -->
+              <p class="h2 float-right"> Kab/Kota ...</p>
             </div>
             <br>
             <hr>
             <br>
-     
-            <?php foreach($segmenkabkota as $s) { ?>
+            <br>
+
+
+            <?php foreach ($kategori as $kat) { ?>
             <div class="row">
               <div class="card" style="width: 100%;">
-               <div class="card-header card text-white bg-danger">
-                 <img src="<?= base_url('assets/logo/').$s->logo ?>" style="width:50px; height:50px;">
-                 <p class="font-weight-bold"><?= $s->kabkot ?></p>
-               </div>
-              <div class="card-body">
-                <p class="text-justify">Kab/Kota yang berbatasan:</p>
-                <br><h5 class="card-title text-justify text-uppercase"><?= $s->kabkot ?></h5>
-                <hr>
-
-                <a href="#" class="btn float-left"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<p class="font-weight-light font-italic text-monospace"><i><?= $s->aturan ?></i></p><br/>
-               <i class="fas fa-clock text-danger"></i>  <small class="text-monospace">diupload :&nbsp&nbsp<?= date('d F Y', strtotime($s->created_at)); ?></small>
-              </div>
+                <div class="card-header card text-white bg-success">
+                  <b><?= $kat->katkabkot_id ?></b>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><?= $kat->batas ?></h5>
+                  <p class="card-text"><?= $kat->aturan ?></p>
+                  <hr>
+                  <a href="#" class="btn float-right"><i class="far fa-file-pdf"></i>
+                    <p><?= $kat->file ?></p>
+                  </a>
+                </div>
               </div>
             </div>
             <br>
             <?php } ?>
-
-      
-
+          
           </div>
         </div>
       </div>

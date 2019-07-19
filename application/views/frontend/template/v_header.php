@@ -10,15 +10,15 @@
     <meta name="keywords" content="DODBD">
 
 
-    <link href="<?= base_url('assets/front'); ?> /assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?= base_url('assets/front'); ?>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600%7COpen+Sans:400%7CVarela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('assets/front'); ?> /assets/css/animate.css"> <!-- Resource style -->
-    <link rel="stylesheet" href="<?= base_url('assets/front'); ?> /assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="<?= base_url('assets/front'); ?> /assets/css/owl.theme.css">
-    <link rel="stylesheet" href="<?= base_url('assets/front'); ?> /assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="<?= base_url('assets/front'); ?> /assets/css/ionicons.min.css"> <!-- Resource style -->
-    <link href="<?= base_url('assets/back'); ?> /vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="<?= base_url('assets/front'); ?> /assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="<?= base_url('assets/front'); ?>/assets/css/animate.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="<?= base_url('assets/front'); ?>/assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="<?= base_url('assets/front'); ?>/assets/css/owl.theme.css">
+    <link rel="stylesheet" href="<?= base_url('assets/front'); ?>/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="<?= base_url('assets/front'); ?>/assets/css/ionicons.min.css"> <!-- Resource style -->
+    <link href="<?= base_url('assets/back'); ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url('assets/front'); ?>/assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   <body>
 
@@ -26,7 +26,7 @@
      <div class="container">
         <nav class="navbar navbar-expand-md navbar-light nav-white bg-light fixed-top">
           <div class="container">
-            <a class="navbar-brand" href="<?= base_url() ?>"><!-- <img src="<?= base_url('assets/front'); ?> /assets/icons/logo.png" width="75" alt="Logo"> --> SIMBAD </a>
+            <a class="navbar-brand" href="<?= base_url() ?>"><!-- <img src="<?= base_url('assets/front'); ?>/assets/icons/logo.png" width="75" alt="Logo"> --> SIMBAD </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>

@@ -13,8 +13,8 @@
               <div class="col-sm-6 col-lg-4 wow fadeInDown" data-wow-delay="0.1s">
                 <div class="lbl-service-card">
                     <div class="card-img">
-                      <a href="<?= base_url() ?>segmenbatas/Provinsi">
-                        <img src="<?= base_url('assets/front'); ?> /assets/images/petaprov.png" width="600" height="225" alt="Feature"></a>
+                      <a href="<?= base_url()?>segmenbatas/Provinsi">
+                        <img src="<?= base_url('assets/front');?>/assets/images/petaprov.png" width="800" height="225" alt="Feature"></a>
                     </div>
                   <div class="card-text">
                     <h3>Segmen Batas Daerah Antar Provinsi </h3>
@@ -26,8 +26,8 @@
                 <div class="lbl-service-card">
                 
                     <div class="card-img">
-                      <a href="<?= base_url() ?>segmenbatas/Kabkota">
-                        <img src="<?= base_url('assets/front'); ?> /assets/images/petakabkot.png" alt="Feature">
+                      <a href="<?= base_url()?>segmenbatas/Kabkota">
+                        <img src="<?= base_url('assets/front');?>/assets/images/petakabkot.png" alt="Feature">
                       </a>
                     </div>
             
@@ -41,8 +41,8 @@
                 <div class="lbl-service-card">
                
                     <div class="card-img">
-                      <a href="<?= base_url() ?>permendagri/Permendagri">
-                        <img src="<?= base_url('assets/front'); ?> /assets/images/peta.png" alt="Feature">
+                      <a href="<?= base_url()?>permendagri/Permendagri">
+                        <img src="<?= base_url('assets/front');?>/assets/images/peta.png" alt="Feature">
                       </a>
                     </div>
           
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <div id="features" class="lbl-features">
+      <!--   <div id="features" class="lbl-features">
           <div class="yd-ft">
             <div class="containr">
               <div class="yd-ft-inner">
@@ -72,7 +72,7 @@
                     <ul>
                       <li>
                         <div class="list-icon">
-                          <img src="<?= base_url('assets/front'); ?> /assets/icons/f2.png" width="24" alt="Icon">
+                          <img src="<?= base_url('assets/front'); ?>/assets/icons/f2.png" width="24" alt="Icon">
                         </div>
                         <div class="list-text">
                           <h3>Segmen Batas Antar Provinsi</h3>
@@ -81,7 +81,7 @@
                       <br>
                       <li>
                         <div class="list-icon">
-                          <img src="<?= base_url('assets/front'); ?> /assets/icons/f2.png" width="24" alt="Icon">
+                          <img src="<?= base_url('assets/front'); ?>/assets/icons/f2.png" width="24" alt="Icon">
                         </div>
                         <div class="list-text">
                           <h3>Segmen Batas Antar Kab/Kota</h3>
@@ -90,7 +90,7 @@
                       <br>
                         <li>
                         <div class="list-icon">
-                          <img src="<?= base_url('assets/front'); ?> /assets/icons/f11.png" width="24" alt="Icon">
+                          <img src="<?= base_url('assets/front'); ?>/assets/icons/f11.png" width="24" alt="Icon">
                         </div>
                         <div class="list-text">
                           <h3>Daftar Permendagri</h3>
@@ -102,12 +102,12 @@
                   </div>
                 </div>
                 <div class="yd-ft-right wow fadeInLeft">
-                  <img src="<?= base_url('assets/front'); ?> /assets/images/feature.png" alt="">
+                  <img src="<?= base_url('assets/front'); ?>/assets/images/feature.png" alt="">
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
 
           <!-- VIDEO -->

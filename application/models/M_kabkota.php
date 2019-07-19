@@ -25,17 +25,13 @@ class M_kabkota extends CI_Model {
     }
 
 
-/*
-public function get_by_role()
-  {
-      $this->db->select('
-          tbl_user.*, tbl_role.id AS id_role, tbl_role.name
-      ');
-      $this->db->join('tbl_role', 'tbl_user.id_role = tbl_role.id');
-      $this->db->from('tbl_user');
-      $query = $this->db->get();
-      return $query->result();
-  }*/
+    public function get_kabkota_by_katkabkot($katkatkabkot_id)
+    {
+
+        $kat_id = $this->db->get_where('katkabkot',array('id' =>$katkatkabkot_id))->row('katkabkot_id');
+        return $this->db->order_by('created_at', 'DESC')->get_where('kabkota', $kat_id)->result();
+    }
+
 
     public function get_data()
     {
