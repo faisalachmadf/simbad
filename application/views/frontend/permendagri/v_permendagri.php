@@ -11,10 +11,10 @@
     </div>
     <!-- Form Cari -->    
     <div class="form wow fadeInLeft float-right" data-wow-delay="0.3s">
-      <form id="chimp-form" class="subscribe-form wow zoomIn" action="#" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
-        <input class="mail" id="chimp-#" type="#" name="#" placeholder="Cari" autocomplete="off"><input class="submit-button" type="submit" value="Carikan">
+      <form action="<?= base_url('permendagri/Permendagri');?>" class="subscribe-form wow zoomIn"  method="post">
+        <input class="mail" type="text" placeholder="Cari" name="keyword" autocomplete="off" autofocus>
+        <input class="submit-button" type="submit" name="submit" value="Carikan">
       </form>
-      <div id="response"></div>
     </div>
   </div>
 </div>
@@ -23,6 +23,8 @@
   <!-- Services Section --> 
   <div class="boxed-intro wow fadeInDown text-center">
     <h1> <strong>Permendagri tentang Segmen Batas Daerah di Jawa Barat</strong></h1><br>
+  
+      <?= $this->pagination->create_links();?>
 
   </div>
   <br><br>
@@ -30,25 +32,34 @@
 
   <div class="yd-boxed-ft">
     <div class="container">
-
+      <h5> Jumlah Data : <?= $total_rows; ?></h5><br/>
      <div class="row text-center">
 
-       <?php  foreach($permen as $p){  ?>
+    
+
+       <?php  foreach($permen as $p) :  ?>
        <div class="col-md-6 col-lg-3 wow fadeInDown">
         <div class="box-inner">
           <div class="box-icon">
             <img src="<?= base_url('assets/front'); ?> /assets/images/pdf.png" alt="Feature" width="30" >
           </div>
           <div class="box-info">
-            <small><?= $p->nomor ?></small><br>
+            <small><?= $p['nomor']; ?></small><br>
             <br><small style="color: red;">tentang</small><br>
-            <p><?= $p->tentang ?></p><br>
-            <small><?= $p->segmen ?></small>
+            <p><?= $p['tentang']; ?></p><br>
+            <small><?= $p['segmen']; ?></small>
             <!--        <p><?= $p->file ?></p> -->
           </div>
         </div>
       </div>
-      <?php } ?>
+      <?php endforeach; ?>
+        <?php if (empty($permen)) : ?>
+        <div class="box-info">
+          <div class="alert alert-danger text-center" role="alert">
+            Tidak ada Data
+          </div>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </div>

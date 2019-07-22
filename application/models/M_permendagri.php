@@ -18,12 +18,36 @@ class M_permendagri extends CI_Model {
         
     }
 
-     
-    public function get_data(){
-        
+    public function get_data_admin()
+    {
+
         $this->db->select('*');
         $this->db->from('permendagri');
         return $this->db->get();
+
+    }
+
+     
+    public function get_data()
+    {
+        
+        return $this->db->get('permendagri')->result_array();
+    }
+
+
+    public function get_data_pagination($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('segmen', $keyword);
+            $this->db->or_like('tentang', $keyword);
+        }
+
+        return $this->db->get('permendagri', $limit, $start)->result_array();
+    }
+
+    public function count_data()
+    {
+        return $this->db->get('permendagri')->num_rows();
     }
 
     public function insert_data(){

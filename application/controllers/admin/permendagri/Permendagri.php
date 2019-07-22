@@ -35,7 +35,7 @@ class Permendagri extends CI_Controller
         $start = intval($this->input->get("start"));
         $length = intval($this->input->get("length"));
 
-        $permendagri = $this->M_permendagri->get_data();
+        $permendagri = $this->M_permendagri->get_data_admin();
 			
           $data = array();
 		  $num=0;
