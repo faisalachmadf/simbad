@@ -24,6 +24,27 @@ class M_provinsi extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_data_frontend()
+    {
+        return $this->db->get('provinsi')->result_array();
+    }
+
+
+     public function get_data_pagination($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+            $this->db->like('id_katprov', $keyword);
+            $this->db->or_like('kabkot', $keyword);
+        }
+
+        return $this->db->get('provinsi', $limit, $start)->result_array();
+    }
+
+    public function count_data()
+    {
+        return $this->db->get('provinsi')->num_rows();
+    }
+
     public function insert_data(){
           
         $data =[

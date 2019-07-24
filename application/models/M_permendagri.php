@@ -38,7 +38,7 @@ class M_permendagri extends CI_Model {
     public function get_data_pagination($limit, $start, $keyword = null)
     {
         if ($keyword) {
-            $this->db->like('segmen', $keyword);
+            $this->db->like('nomor', $keyword);
             $this->db->or_like('tentang', $keyword);
         }
 

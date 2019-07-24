@@ -9,11 +9,11 @@
           </div>
         </div>  
         <!-- Form Cari -->    
-        <div class="form wow fadeInLeft float-right" data-wow-delay="0.3s">
-          <form id="chimp-form" class="subscribe-form wow zoomIn" action="#" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off" novalidate>
-            <input class="mail" id="chimp-#" type="#" name="#" placeholder="Cari" autocomplete="off"><input class="submit-button" type="submit" value="Carikan">
+        <div class="form float-right" data-wow-delay="0.3s">
+          <form action="<?= base_url('segmenbatas/Provinsi/search');?>" class="subscribe-form wow zoomIn"  method="post">
+            <input class="mail" type="text" placeholder="Cari Provinsi Berbatasan" name="keyword" autocomplete="off"  placeholder="Ketik disini">
+            <input class="submit-button" type="submit" name="submit" value="Carikan">
           </form>
-          <div id="response"></div>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div id="main" class="main" style="margin-top: 50px;">
       <div class="boxed-intro wow fadeInDown text-center">
         <h1> <strong>Segmen Batas Provinsi Jawa Barat</strong></h1><br>
-        
+        <?= $this->pagination->create_links();?>
       </div>
       <br><br>
       
@@ -30,13 +30,14 @@
 
         <div class="container">
 
+         
           <div class="row">
 
             <div class="col-4">
 
 
               <strong><p class="text-center">Segmen Batas Provinsi Jawa Barat</p></strong><br>
-              <img class="mx-auto d-block"style="width: 120px; height: 80px;" src="<?= base_url('assets/front'); ?> /assets/images/petaprov.png" alt="Card image cap"> 
+              <img class="mx-auto d-block" style="width: 120px; height: 80px;" src="<?= base_url('assets/front'); ?> /assets/images/petaprov.png" alt="Card image cap"> 
 
               
 
@@ -70,70 +71,81 @@
 
 
        </div>
-            
 
-            <div class="col-7" style="margin-left: 25px;">
 
-              <div class=" wow fadeInDown">
+       <div class="col-7" style="margin-left: 25px;">
+
+        <div class=" wow fadeInDown">
 
              <!--    <div class="row">
                   <p class="h2 float-right"> Provinsi Jawa Barat dengan<br> Provinsi Bla Bla Bla Bla</p> 
                 </div>
- -->
-                <hr>
-                <br>
-                <?php  foreach($segmenprov as $prov) {  ?>
+              -->
+              <hr>
+              <br>
+              <?php  foreach($segmenprov as $p) :  ?>
                 <div class="row">
                   <div class="card" style="width: 100%;">
 
-
-                    <?php if ($prov->id_katprov == "Prov. Jawa Barat dengan Prov. DKI Jakarta") : ?> 
+                    <?php if ($p['id_katprov'] == "Prov. Jawa Barat dengan Prov. DKI Jakarta") : ?> 
                       <div class="card-header card text-white bg-danger">
                         <img src="<?= base_url('assets/logo/jakarta.png')?>" style="width:50px; height:50px;">
-                        <p class="font-weight-bold"><?= $prov->id_katprov ?></p>
+                        <p class="font-weight-bold"><?= $p['id_katprov'] ?></p>
                       </div>
-                    <?php elseif ($prov->id_katprov == "Prov. Jawa Barat dengan Prov. Banten") : ?> 
+                    <?php elseif ($p['id_katprov'] == "Prov. Jawa Barat dengan Prov. Banten") : ?> 
                       <div class="card-header card text-white bg-success">
                        <img src="<?= base_url('assets/logo/banten.png')?>" style="width:50px; height:50px;">
-                       <p class="font-weight-bold"><?= $prov->id_katprov ?></p>
+                       <p class="font-weight-bold"><?= $p['id_katprov'] ?></p>
                      </div>
                    <?php else : ?>
                     <div class="card-header card text-white bg-primary">
                       <img src="<?= base_url('assets/logo/jateng.png')?>" style="width:50px; height:50px;">
-                      <p class="font-weight-bold"><?= $prov->id_katprov ?></p>
+                      <p class="font-weight-bold"><?= $p['id_katprov'] ?></p>
                     </div>
                   <?php endif; ?>
 
 
-               <div class="card-body">
-                <p class="text-justify">Kab/Kota yang berbatasan:</p>
-                <br><h5 class="card-title text-justify text-uppercase"><?= $prov->kabkot ?></h5>
-                <hr>
+                <div class="card-body">
+                  <p class="text-justify">Kab/Kota yang berbatasan:</p>
+                  <br><h5 class="card-title text-justify text-uppercase"><?= $p['kabkot']; ?></h5>
+                  <hr>
 
-                <a href="#" class="btn float-left"><i class="far fa-file-pdf"></i></a>&nbsp&nbsp&nbsp<p class="font-weight-light font-italic text-monospace"><i><?= $prov->aturan ?></i></p>
+
+
+                  <a href="<?= base_url('assets/segmenprovinsi/').$p['file'] ?>" class="btn float-left"><i class="far fa-file-pdf"></i></a>
+                  &nbsp&nbsp&nbsp<p class="font-weight-light font-italic text-monospace"><i><?= $p['aturan']; ?></i></p>
+                </div>
+              </div>          
+            </div>
+            <br>
+            <?php endforeach; ?>
+            <?php if (empty($segmenprov)) : ?>
+              <div class="box-info">
+                <div class="alert alert-danger text-center" role="alert">
+                  Tidak ada Data
+                </div>
               </div>
-            </div>          
+            <?php else : ?>
+               <h5> Jumlah Data : <?= $total_rows; ?></h5><br/>
+            <?php endif; ?>
           </div>
-          <br>
-          <?php } ?>
         </div>
       </div>
-    </div>
-    <div class="contact-details text-center">
-      <i class="ion-ios-home-outline"></i>
-      <hr>
+      <div class="contact-details text-center">
+        <i class="ion-ios-home-outline"></i>
+        <hr>
 
+      </div>
     </div>
   </div>
-</div>
 
 
 
-<!-- Scroll To Top -->
-<div class="bk-top">
-  <div class="bk-top-txt">
-    <a class="back-to-top js-scroll-trigger" href="#main">Konten</a>
+  <!-- Scroll To Top -->
+  <div class="bk-top">
+    <div class="bk-top-txt">
+      <a class="back-to-top js-scroll-trigger" href="#main">Konten</a>
+    </div>
   </div>
-</div>
-<!-- Scroll To Top Ends-->
+  <!-- Scroll To Top Ends-->
       </div> <!-- Main -->

@@ -1,7 +1,7 @@
 <?php
 
 // Konfigurasi Pagination
-$config['base_url'] = 'http://localhost/simbad/permendagri/Permendagri/index';
+
 $config['num_link'] = 3;
 
 		// styling pagination

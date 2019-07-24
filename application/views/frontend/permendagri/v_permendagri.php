@@ -10,9 +10,9 @@
       </div>
     </div>
     <!-- Form Cari -->    
-    <div class="form wow fadeInLeft float-right" data-wow-delay="0.3s">
-      <form action="<?= base_url('permendagri/Permendagri');?>" class="subscribe-form wow zoomIn"  method="post">
-        <input class="mail" type="text" placeholder="Cari" name="keyword" autocomplete="off" autofocus>
+    <div class="form float-right" data-wow-delay="0.3s">
+      <form action="<?= base_url('permendagri/Permendagri/search');?>" class="subscribe-form wow zoomIn"  method="post">
+        <input class="mail" type="text" placeholder="Cari Kab/Kota" name="keyword" autocomplete="off"  placeholder="Ketik disini">
         <input class="submit-button" type="submit" name="submit" value="Carikan">
       </form>
     </div>
@@ -23,7 +23,7 @@
   <!-- Services Section --> 
   <div class="boxed-intro wow fadeInDown text-center">
     <h1> <strong>Permendagri tentang Segmen Batas Daerah di Jawa Barat</strong></h1><br>
-  
+    
       <?= $this->pagination->create_links();?>
 
   </div>
@@ -32,57 +32,55 @@
 
   <div class="yd-boxed-ft">
     <div class="container">
-      <h5> Jumlah Data : <?= $total_rows; ?></h5><br/>
-     <div class="row text-center">
 
-    
+      <h5> Jumlah Data : <?= $total_rows; ?></h5><br/>
+      <div class="row text-center">
+
+
 
        <?php  foreach($permen as $p) :  ?>
-       <div class="col-md-6 col-lg-3 wow fadeInDown">
-        <div class="box-inner">
-          <div class="box-icon">
-            <img src="<?= base_url('assets/front'); ?> /assets/images/pdf.png" alt="Feature" width="30" >
-          </div>
-          <div class="box-info">
-            <small><?= $p['nomor']; ?></small><br>
-            <br><small style="color: red;">tentang</small><br>
-            <p><?= $p['tentang']; ?></p><br>
-            <small><?= $p['segmen']; ?></small>
-            <!--        <p><?= $p->file ?></p> -->
+         <div class="col-md-6 col-lg-3 wow fadeInDown">
+          <div class="box-inner">
+            <div class="box-icon">
+             <a href="<?= base_url('assets/permendagri/').$p['file'] ?>"> <img src="<?= base_url('assets/front'); ?> /assets/images/pdf.png" alt="Feature" width="30" >
+            </div>
+            <div class="box-info">
+              <small><?= $p['nomor']; ?></small><br></a>
+              <br><small style="color: red;">tentang</small><br>
+              <p><?= $p['tentang']; ?></p><br>
+              <small><?= $p['segmen']; ?></small>
+              <!--        <p><?= $p->file ?></p> -->
+            </div>
           </div>
         </div>
-      </div>
       <?php endforeach; ?>
-        <?php if (empty($permen)) : ?>
+      <?php if (empty($permen)) : ?>
         <div class="box-info">
           <div class="alert alert-danger text-center" role="alert">
             Tidak ada Data
           </div>
         </div>
       <?php endif; ?>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-
-  <div class="container">
-
-    <div class="contact-details text-center">
-      <i class="ion-ios-home-outline"></i>
-      <hr>
-
+  <div class="row">
+    <div class="container">
+      <div class="contact-details text-center">
+        <i class="ion-ios-home-outline"></i>
+        <hr>
+      </div>
     </div>
   </div>
-</div>
 
 
 
-<!-- Scroll To Top -->
-<div  class="bk-top">
-  <div class="bk-top-txt">
-    <a class="back-to-top js-scroll-trigger" href="#main">Konten</a>
+  <!-- Scroll To Top -->
+  <div  class="bk-top">
+    <div class="bk-top-txt">
+      <a class="back-to-top js-scroll-trigger" href="#main">Konten</a>
+    </div>
   </div>
-</div>
 <!-- Scroll To Top Ends-->
-      </div> <!-- Main -->
+</div> <!-- Main -->

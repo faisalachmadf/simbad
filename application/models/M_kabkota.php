@@ -45,6 +45,24 @@ class M_kabkota extends CI_Model {
     }
 
 
+    public function get_data_pagination($limit, $start, $keyword = null)
+    {
+        if ($keyword) {
+          /*  $this->db->like('batas', $keyword);*/
+            $this->db->or_like('kabkot', $keyword);
+        }
+
+        $this->db->select('kabkota.*, katkabkot.id AS katkabkot_id, katkabkot.kabkot, katkabkot.logo');
+        $this->db->join('katkabkot', 'kabkota.katkabkot_id = katkabkot.id', 'left');
+        return $this->db->get('kabkota')->result_array();
+    }
+
+    public function count_data()
+    {
+        return $this->db->get('kabkota')->num_rows();
+    }
+
+
     public function insert_data()
     {
 
